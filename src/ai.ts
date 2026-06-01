@@ -1,4 +1,4 @@
-import { streamObject } from "ai";
+import { streamText, Output } from "ai";
 import { google } from "@ai-sdk/google";
 import {
   StoryResponseSchema,
@@ -31,19 +31,19 @@ export async function generateStoryTurn(
     { role: "user" as const, content: playerAction },
   ];
 
-  const { partialObjectStream, object } = streamObject({
+  const result = streamText({
     model: google("gemini-3.1-flash-lite"),
-    schema: StoryResponseSchema,
+    output: Output.object({ schema: StoryResponseSchema }),
     system: `${SYSTEM_PROMPT}\n\nGenre: ${state.genre}\nPlayer name: ${state.playerName}\nTurn: ${state.turnCount}`,
     messages,
     maxOutputTokens: 400,
   });
 
-  for await (const partial of partialObjectStream) {
+  for await (const partial of result.partialOutputStream) {
     onChunk(partial);
   }
 
-  return await object;
+  return await result.output as StoryResponse;
 }
 
 export async function generateOpening(
@@ -62,12 +62,9 @@ export async function generateOpening(
       "Begin a survival story. The player emerges from an underground bunker for the first time in years.",
   };
 
-  let result!: StoryResponse;
-  await generateStoryTurn(
+  return generateStoryTurn(
     { ...state, history: [] },
     genrePrompts[state.genre],
     () => {},
-  ).then((r) => (result = r));
-
-  return result;
+  );
 }
