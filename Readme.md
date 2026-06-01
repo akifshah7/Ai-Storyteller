@@ -2,7 +2,7 @@
 
 An interactive AI-powered text adventure that runs in your terminal. Every playthrough is unique — the story reacts to your choices in real time using streaming structured AI responses.
 
-![demo](https://github.com/user-attachments/assets/673c5f42-cbf5-448e-b593-7fcd7becb092)
+![demo](https://github.com/user-attachments/assets/e6c5612a-0c85-4e47-9045-9a28cb992afc)
 
 ## Features
 
