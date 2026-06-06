@@ -26,8 +26,8 @@ An interactive AI-powered text adventure that runs in your terminal. Every playt
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/ai-storyteller
-cd ai-storyteller
+https://github.com/akifshah7/Ai-Storyteller.git
+cd Ai-Storyteller
 ```
 
 ### 2. Install dependencies
